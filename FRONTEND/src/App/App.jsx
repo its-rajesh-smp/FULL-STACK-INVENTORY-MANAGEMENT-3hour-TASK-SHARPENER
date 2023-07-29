@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import AddProductForm from '../Components/AddProductForm/AddProductForm'
+import AddProductForm from '../Components/Forms/AddProductForm'
 import Header from '../Components/Header/Header'
 import Shop from '../Pages/Shop'
 import './App.css'

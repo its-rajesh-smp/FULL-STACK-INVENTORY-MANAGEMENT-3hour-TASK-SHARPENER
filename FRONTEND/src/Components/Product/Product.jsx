@@ -3,7 +3,7 @@ import InputButton from "../INPUT/InputButton";
 import StoreContext from "../../Context/StoreContext";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai"
-import ModificationForm from "../AddProductForm/ModificationForm";
+import ModificationForm from "../Forms/ModificationForm";
 
 function Product({ data }) {
     const StoreCTX = useContext(StoreContext);
