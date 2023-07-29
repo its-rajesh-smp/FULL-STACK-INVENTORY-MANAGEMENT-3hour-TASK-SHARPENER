@@ -4,6 +4,7 @@ const router = express.Router()
 
 router.post("/add", productController.add)
 router.post("/get", productController.get)
+router.post("/buy", productController.buy)
 router.post("/update", productController.update)
 
 

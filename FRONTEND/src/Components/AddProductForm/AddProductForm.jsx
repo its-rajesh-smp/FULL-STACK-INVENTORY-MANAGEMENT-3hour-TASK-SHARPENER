@@ -29,10 +29,16 @@ function AddProductForm() {
     /* -------------------------------------------------------------------------- */
     const storeProductHandeler = (e) => {
         e.preventDefault()
+
+        if (name === "" || description === "") {
+            alert("ADD NOT POSSIBLE EMPTY FIELD")
+            return
+        }
+
         const productObj = {
             name, description, price: Number(price), stock: Number(stock)
         }
-        StoreCTX.databaseAddHandeler(productObj, closeAddProductFormHandeler)
+        StoreCTX.addProduct(productObj, closeAddProductFormHandeler)
     }
 
 

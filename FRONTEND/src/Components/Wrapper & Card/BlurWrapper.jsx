@@ -8,4 +8,4 @@ function BlurWrapper({ className, children }) {
     )
 }
 
-export default BlurWrapper
+export default BlurWrapper 

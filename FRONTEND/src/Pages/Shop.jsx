@@ -10,7 +10,7 @@ function Shop() {
 
     // FETCH STORE PRODUCT
     useEffect(() => {
-        StoreCTX.databaseFetchProductList()
+        StoreCTX.fetchProductList()
     }, [])
 
 
@@ -18,11 +18,12 @@ function Shop() {
 
     return (
         <PageWrapper className=" flex flex-col gap-2">
-            <div className=' px-5 grid text-white grid-cols-5 bg-zinc-600 h-10 items-center'>
+            <div className=' px-5 grid text-white grid-cols-6 bg-zinc-600 h-10 items-center'>
                 <p>Name</p>
                 <p>Description</p>
                 <p>Price</p>
                 <p>Stock</p>
+                <p>Modification</p>
                 <div className=' flex gap-5  text-white'>
                     <InputButton placeHolder="BUY 5" className="h-full opacity-100 cursor-default " />
                     <InputButton placeHolder="BUY 5" className="h-full opacity-100 cursor-default " />

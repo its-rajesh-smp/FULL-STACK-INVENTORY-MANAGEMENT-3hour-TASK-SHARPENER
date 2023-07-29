@@ -3,10 +3,11 @@ import Axios from "axios"
 
 
 const StoreContext = React.createContext({
-    databaseAddHandeler: () => { },
-    databaseFetchProductList: () => { },
+    addProduct: () => { },
+    fetchProductList: () => { },
     productList: [],
-    updateProductStock: () => { }
+    buyProduct: () => { },
+    updateProduct: () => { }
 })
 
 
@@ -19,7 +20,7 @@ export const StoreContextProvider = ({ children }) => {
     /* -------------------------------------------------------------------------- */
     /*                              STORE IN DATABASE                             */
     /* -------------------------------------------------------------------------- */
-    const databaseAddHandeler = async (productObj, closeForm) => {
+    const addProduct = async (productObj, closeForm) => {
         try {
             const { data: response } = await Axios.post("http://localhost:5000/add", productObj)
             setProductList(p => [response, ...p])
@@ -33,7 +34,7 @@ export const StoreContextProvider = ({ children }) => {
     /* -------------------------------------------------------------------------- */
     /*                             FETCH PRODUCT DATA                             */
     /* -------------------------------------------------------------------------- */
-    const databaseFetchProductList = async () => {
+    const fetchProductList = async () => {
         try {
             const { data: response } = await Axios.post("http://localhost:5000/get")
             setProductList(response)
@@ -43,10 +44,12 @@ export const StoreContextProvider = ({ children }) => {
     }
 
 
-
-    const updateProductStock = async (productId, stock, quantity, setStock) => {
+    /* -------------------------------------------------------------------------- */
+    /*                          BUY PRODUCT DEC QUANTITY                          */
+    /* -------------------------------------------------------------------------- */
+    const buyProduct = async (productId, stock, quantity, setStock) => {
         try {
-            await Axios.post("http://localhost:5000/update", { productId, updatedStock: stock - quantity })
+            await Axios.post("http://localhost:5000/buy", { productId, updatedStock: stock - quantity })
             setStock(p => p - quantity)
 
         } catch (error) {
@@ -56,10 +59,27 @@ export const StoreContextProvider = ({ children }) => {
 
 
 
+    const updateProduct = async (id, payload, setStock, setName, setPrice, setDescription, handelEditForm) => {
+        try {
+            const { data: dbRes } = await Axios.post("http://localhost:5000/update", { id, payload })
+
+            setStock(payload.stock)
+            setName(payload.name)
+            setPrice(payload.price)
+            setDescription(payload.description)
+            setStock(payload.stock)
+            handelEditForm()
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
 
     return (
-        <StoreContext.Provider value={{ databaseAddHandeler, databaseFetchProductList, productList, updateProductStock }}>
+        <StoreContext.Provider value={{ addProduct, fetchProductList, productList, buyProduct, updateProduct }}>
             {children}
         </StoreContext.Provider>
     )

@@ -32,7 +32,7 @@ exports.get = async (req, res) => {
 
 
 
-exports.update = async (req, res) => {
+exports.buy = async (req, res) => {
     try {
         const { productId, updatedStock } = req.body
         const dbResponse = await Product.update({ stock: updatedStock }, {
@@ -40,6 +40,27 @@ exports.update = async (req, res) => {
         })
 
         res.send(dbResponse)
+    } catch (error) {
+        console.log(error);
+        res.send(false)
+    }
+}
+
+
+
+
+
+
+exports.update = async (req, res) => {
+    try {
+        console.log(req.body);
+        const dbResponse = await Product.update(req.body.payload, {
+            where: {
+                productId: req.body.id
+            }
+        })
+        res.send(true)
+
     } catch (error) {
         console.log(error);
         res.send(false)

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 // 
 function InputText({ placeHolder, value, type, onChange, className }) {
-    const [active, setActive] = useState(false)
+    const [active, setActive] = useState(value ? true : false)
     const inputRef = useRef()
 
 
