@@ -18,7 +18,7 @@ function Shop() {
 
     return (
         <PageWrapper className=" flex flex-col gap-2">
-            <div className=' px-5 grid text-white grid-cols-6 bg-zinc-600 h-10 items-center'>
+            <div className=' px-5 grid text-white grid-cols-productGrid bg-zinc-600 h-10 items-center'>
                 <p>Name</p>
                 <p>Description</p>
                 <p>Price</p>

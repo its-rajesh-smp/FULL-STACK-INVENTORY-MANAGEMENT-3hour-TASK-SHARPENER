@@ -41,7 +41,7 @@ function Product({ data }) {
 
     return (
         <>
-            <div className=" px-5 grid text-black grid-cols-6 bg-white  h-20 items-center">
+            <div className=" px-5 grid text-black  grid-cols-productGrid bg-white  h-20 items-center">
                 <p>{name}</p>
                 <p>{description}</p>
                 <p>{price}</p>
@@ -52,7 +52,7 @@ function Product({ data }) {
                     <AiOutlineDelete onClick={deleteButtonHandeler} className=" text-red-600 cursor-pointer" />
                 </div>
 
-                <div className=" flex gap-5  text-white">
+                <div className=" flex gap-3 justify-between text-white">
                     {stock >= 1 && (
                         <InputButton
                             onClick={() => {
