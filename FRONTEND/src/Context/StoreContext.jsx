@@ -7,6 +7,7 @@ const StoreContext = React.createContext({
     fetchProductList: () => { },
     productList: [],
     buyProduct: () => { },
+    deleteProduct: () => { },
     updateProduct: () => { }
 })
 
@@ -15,7 +16,15 @@ const StoreContext = React.createContext({
 
 export const StoreContextProvider = ({ children }) => {
 
+    /* -------------------------------------------------------------------------- */
+    /*                         STATE TO HOLD PRODUCT LIST                         */
+    /* -------------------------------------------------------------------------- */
     const [productList, setProductList] = useState([])
+
+
+
+
+
 
     /* -------------------------------------------------------------------------- */
     /*                              STORE IN DATABASE                             */
@@ -58,10 +67,12 @@ export const StoreContextProvider = ({ children }) => {
     }
 
 
-
+    /* -------------------------------------------------------------------------- */
+    /*                               UPDATE PRODUCT                               */
+    /* -------------------------------------------------------------------------- */
     const updateProduct = async (id, payload, setStock, setName, setPrice, setDescription, handelEditForm) => {
         try {
-            const { data: dbRes } = await Axios.post("http://localhost:5000/update", { id, payload })
+            await Axios.post("http://localhost:5000/update", { id, payload })
 
             setStock(payload.stock)
             setName(payload.name)
@@ -77,9 +88,28 @@ export const StoreContextProvider = ({ children }) => {
 
 
 
+    /* -------------------------------------------------------------------------- */
+    /*                               DELETE PRODUCT                               */
+    /* -------------------------------------------------------------------------- */
+    const deleteProduct = async (id) => {
+        try {
+            await Axios.post("http://localhost:5000/delete", { id })
+
+            // UPDATING LIST AFTER DELETE FROM DATABASE
+            setProductList(p => {
+                return p.filter((product) => product.productId !== id)
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
 
     return (
-        <StoreContext.Provider value={{ addProduct, fetchProductList, productList, buyProduct, updateProduct }}>
+        <StoreContext.Provider value={{ addProduct, fetchProductList, productList, buyProduct, updateProduct, deleteProduct }}>
             {children}
         </StoreContext.Provider>
     )

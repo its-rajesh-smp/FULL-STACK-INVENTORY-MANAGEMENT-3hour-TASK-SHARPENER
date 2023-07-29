@@ -53,7 +53,7 @@ exports.buy = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        console.log(req.body);
+
         const dbResponse = await Product.update(req.body.payload, {
             where: {
                 productId: req.body.id
@@ -61,6 +61,25 @@ exports.update = async (req, res) => {
         })
         res.send(true)
 
+    } catch (error) {
+        console.log(error);
+        res.send(false)
+    }
+}
+
+
+
+
+exports.delete = async (req, res) => {
+    try {
+        const { id } = req.body
+
+        await Product.destroy({
+            where: {
+                productId: id
+            }
+        })
+        res.send(true)
     } catch (error) {
         console.log(error);
         res.send(false)

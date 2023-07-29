@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import InputButton from "../INPUT/InputButton";
 import StoreContext from "../../Context/StoreContext";
 import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai"
 import ModificationForm from "../AddProductForm/ModificationForm";
 
 function Product({ data }) {
@@ -23,10 +24,20 @@ function Product({ data }) {
         }
     };
 
+
+
     // SHOW EDIT FORM ON CLICK EDIT
     const handelEditForm = () => {
         showEditForm((p) => !p);
     };
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                                HANDEL DELETE                               */
+    /* -------------------------------------------------------------------------- */
+    const deleteButtonHandeler = () => {
+        StoreCTX.deleteProduct(data.productId)
+    }
 
     return (
         <>
@@ -36,10 +47,13 @@ function Product({ data }) {
                 <p>{price}</p>
                 <p>{stock}</p>
 
-                <FiEdit onClick={handelEditForm} className=" cursor-pointer text-2xl" />
+                <div className=" text-2xl flex gap-4">
+                    <FiEdit onClick={handelEditForm} className=" text-blue-600 cursor-pointer" />
+                    <AiOutlineDelete onClick={deleteButtonHandeler} className=" text-red-600 cursor-pointer" />
+                </div>
 
                 <div className=" flex gap-5  text-white">
-                    {stock - 1 >= 0 && (
+                    {stock >= 1 && (
                         <InputButton
                             onClick={() => {
                                 buyButtonHandeler(1);
@@ -48,7 +62,7 @@ function Product({ data }) {
                             className="h-10 text-black bg-gray-500"
                         />
                     )}
-                    {stock - 3 >= 0 && (
+                    {stock >= 3 && (
                         <InputButton
                             onClick={() => {
                                 buyButtonHandeler(3);
@@ -57,7 +71,7 @@ function Product({ data }) {
                             className="h-10 text-black bg-gray-500"
                         />
                     )}
-                    {stock - 5 >= 0 && (
+                    {stock >= 5 && (
                         <InputButton
                             onClick={() => {
                                 buyButtonHandeler(5);
@@ -76,7 +90,7 @@ function Product({ data }) {
                     price={price}
                     stock={stock}
                     description={description}
-                    setName={setPrice}
+                    setName={setName}
                     setPrice={setPrice}
                     setDescription={setDescription}
                     setStock={setStock}
