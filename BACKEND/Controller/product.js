@@ -1,6 +1,6 @@
 const Product = require("../Model/product")
 
-exports.add = async (req, res) => {
+exports.addProduct = async (req, res) => {
     try {
         const { name, description, price, stock } = req.body
         const dbResponse = await Product.create({ name, description, price, stock })
@@ -16,7 +16,7 @@ exports.add = async (req, res) => {
 
 
 
-exports.get = async (req, res) => {
+exports.getAllProducts = async (req, res) => {
     try {
         const dbResponse = await Product.findAll()
         res.send(dbResponse)
@@ -32,7 +32,7 @@ exports.get = async (req, res) => {
 
 
 
-exports.buy = async (req, res) => {
+exports.buyProduct = async (req, res) => {
     try {
         const { productId, updatedStock } = req.body
         const dbResponse = await Product.update({ stock: updatedStock }, {
@@ -51,7 +51,7 @@ exports.buy = async (req, res) => {
 
 
 
-exports.update = async (req, res) => {
+exports.updateProduct = async (req, res) => {
     try {
 
         const dbResponse = await Product.update(req.body.payload, {
@@ -70,7 +70,7 @@ exports.update = async (req, res) => {
 
 
 
-exports.delete = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
     try {
         const { id } = req.body
 

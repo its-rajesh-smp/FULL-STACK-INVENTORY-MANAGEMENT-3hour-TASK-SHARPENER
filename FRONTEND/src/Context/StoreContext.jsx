@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Axios from "axios"
+import { ADD_PRODUCT, BUY_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, UPDATE_PRODUCT } from '../API/endpoints';
 
 
 const StoreContext = React.createContext({
@@ -16,12 +17,25 @@ const StoreContext = React.createContext({
 
 export const StoreContextProvider = ({ children }) => {
 
-    /* -------------------------------------------------------------------------- */
-    /*                         STATE TO HOLD PRODUCT LIST                         */
-    /* -------------------------------------------------------------------------- */
+
+    //   STATE TO HOLD PRODUCT LIST                         
     const [productList, setProductList] = useState([])
 
 
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                             FETCH PRODUCT DATA                             */
+    /* -------------------------------------------------------------------------- */
+    const fetchProductList = async () => {
+        try {
+            const { data: response } = await Axios.post(GET_ALL_PRODUCTS)
+            setProductList(response)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
 
@@ -31,7 +45,7 @@ export const StoreContextProvider = ({ children }) => {
     /* -------------------------------------------------------------------------- */
     const addProduct = async (productObj, closeForm) => {
         try {
-            const { data: response } = await Axios.post("http://localhost:5000/add", productObj)
+            const { data: response } = await Axios.post(ADD_PRODUCT, productObj)
             setProductList(p => [response, ...p])
         } catch (error) {
             console.log(error);
@@ -40,17 +54,7 @@ export const StoreContextProvider = ({ children }) => {
     }
 
 
-    /* -------------------------------------------------------------------------- */
-    /*                             FETCH PRODUCT DATA                             */
-    /* -------------------------------------------------------------------------- */
-    const fetchProductList = async () => {
-        try {
-            const { data: response } = await Axios.post("http://localhost:5000/get")
-            setProductList(response)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
 
     /* -------------------------------------------------------------------------- */
@@ -58,7 +62,7 @@ export const StoreContextProvider = ({ children }) => {
     /* -------------------------------------------------------------------------- */
     const buyProduct = async (productId, stock, quantity, setStock) => {
         try {
-            await Axios.post("http://localhost:5000/buy", { productId, updatedStock: stock - quantity })
+            await Axios.post(BUY_PRODUCT, { productId, updatedStock: stock - quantity })
             setStock(p => p - quantity)
 
         } catch (error) {
@@ -67,12 +71,14 @@ export const StoreContextProvider = ({ children }) => {
     }
 
 
+
+
     /* -------------------------------------------------------------------------- */
     /*                               UPDATE PRODUCT                               */
     /* -------------------------------------------------------------------------- */
     const updateProduct = async (id, payload, setStock, setName, setPrice, setDescription, handelEditForm) => {
         try {
-            await Axios.post("http://localhost:5000/update", { id, payload })
+            await Axios.post(UPDATE_PRODUCT, { id, payload })
 
             setStock(payload.stock)
             setName(payload.name)
@@ -93,7 +99,7 @@ export const StoreContextProvider = ({ children }) => {
     /* -------------------------------------------------------------------------- */
     const deleteProduct = async (id) => {
         try {
-            await Axios.post("http://localhost:5000/delete", { id })
+            await Axios.post(DELETE_PRODUCT, { id })
 
             // UPDATING LIST AFTER DELETE FROM DATABASE
             setProductList(p => {

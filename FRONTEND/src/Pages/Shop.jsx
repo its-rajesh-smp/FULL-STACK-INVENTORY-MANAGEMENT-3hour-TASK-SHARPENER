@@ -25,8 +25,8 @@ function Shop() {
                 <p>Stock</p>
                 <p>Modification</p>
                 <div className=' flex gap-5  text-white'>
-                    <InputButton placeHolder="BUY 5" className="h-full opacity-100 cursor-default " />
-                    <InputButton placeHolder="BUY 5" className="h-full opacity-100 cursor-default " />
+                    <InputButton placeHolder="BUY 1" className="h-full opacity-100 cursor-default " />
+                    <InputButton placeHolder="BUY 3" className="h-full opacity-100 cursor-default " />
                     <InputButton placeHolder="BUY 5" className="h-full opacity-100 cursor-default " />
                 </div>
             </div>

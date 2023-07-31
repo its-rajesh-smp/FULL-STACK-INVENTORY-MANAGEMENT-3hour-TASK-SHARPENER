@@ -3,7 +3,9 @@ const cors = require('cors')
 const body_parser = require('body-parser')
 const sequelize = require("./util/database")
 
-const product = require("./Router/product")
+// Routes
+const product = require("./Routes/product")
+
 
 const app = express()
 
