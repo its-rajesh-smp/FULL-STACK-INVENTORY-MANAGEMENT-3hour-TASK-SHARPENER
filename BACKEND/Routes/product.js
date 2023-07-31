@@ -1,5 +1,5 @@
 const express = require("express")
-const productController = require("../Controller/product")
+const productController = require("../controllers/product")
 const router = express.Router()
 
 router.post("/addProduct", productController.addProduct)

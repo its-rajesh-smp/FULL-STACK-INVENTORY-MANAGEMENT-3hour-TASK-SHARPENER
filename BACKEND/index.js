@@ -4,7 +4,7 @@ const body_parser = require('body-parser')
 const sequelize = require("./util/database")
 
 // Routes
-const product = require("./Routes/product")
+const product = require("./routes/product")
 
 
 const app = express()
